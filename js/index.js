@@ -1,4 +1,4 @@
-gsap.registerPlugin(SplitText);
+gsap.registerPlugin(SplitText, ScrollTrigger);
 
 const split = SplitText.create(".preloader__line", {
   type: "chars",
@@ -35,9 +35,9 @@ function animateHeader() {
         from: "start"
       },
       duration: 1
-    }, "<")
+    })
     .to(".header", { backgroundColor: "teal", duration: 3 })
-    .to([".header__item", ".header__item a"], { color: "#ccc", duration: 3 },"+2");
+    .to([".header__item", ".header__item a"], { color: "#ccc", duration: 3 });
   }
   
   function animateMobileHeader() {
@@ -48,3 +48,22 @@ function animateHeader() {
     .to(".header__burger", { opacity: 1, duration: 3 })
     .to(".header", { backgroundColor: "teal", duration: 3 })
 }
+
+let tl = gsap.timeline({
+
+	scrollTrigger: {
+		trigger: '.hero',
+		pin: true, 
+		start: 'top top', 
+  	end: '+=5000',
+		scrub: 1, 
+		
+	}
+});
+
+
+tl.addLabel('start')
+	.to('.hero__content .hero__column', { left:0 },">")
+
+
+	.addLabel('end');
